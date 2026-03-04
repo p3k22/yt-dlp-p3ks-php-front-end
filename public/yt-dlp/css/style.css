@@ -1,0 +1,310 @@
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+   *,
+   *::before,
+   *::after {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
+
+/* ==========================================================================
+   Design Tokens (custom properties)
+   ========================================================================== */
+
+   :root {
+       --bg: #0a0a0b;
+       --surface: #131316;
+       --surface2: #1a1a1f;
+       --border: #2a2a30;
+       --text: #e8e8ec;
+       --text-dim: #6e6e7a;
+       --accent: #4af0c0;
+       --accent-dim: #4af0c020;
+       --danger: #f04a4a;
+   }
+
+/* ==========================================================================
+   Base & Layout
+   ========================================================================== */
+
+   body {
+       font-family: 'Outfit', sans-serif;
+       background: var(--bg);
+       color: var(--text);
+       min-height: 100vh;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       padding: 20px;
+   }
+
+   .container {
+       width: 100%;
+       max-width: 540px;
+   }
+
+/* ==========================================================================
+   Logo & Blurb
+   ========================================================================== */
+
+   .logo {
+       font-family: 'JetBrains Mono', monospace;
+       font-size: 1.4rem;
+       font-weight: 700;
+       color: var(--accent);
+       margin-bottom: 10px;
+       letter-spacing: -0.5px;
+   }
+
+   .logo span {
+       color: var(--text-dim);
+       font-weight: 400;
+   }
+
+   .blurb {
+       font-size: 0.82rem;
+       color: var(--text-dim);
+       margin-bottom: 24px;
+       line-height: 1.6;
+   }
+
+   .blurb a {
+       color: var(--accent);
+       text-decoration: none;
+   }
+
+   .blurb a:hover {
+       text-decoration: underline;
+   }
+
+/* ==========================================================================
+   URL Input & Go Button
+   ========================================================================== */
+
+   .url-row {
+       display: flex;
+       gap: 10px;
+       margin-bottom: 24px;
+   }
+
+   .url-input {
+       flex: 1;
+       background: var(--surface);
+       border: 1px solid var(--border);
+       border-radius: 8px;
+       padding: 14px 16px;
+       font-family: 'JetBrains Mono', monospace;
+       font-size: 0.85rem;
+       color: var(--text);
+       outline: none;
+       transition: border-color 0.2s;
+   }
+
+   .url-input:focus {
+       border-color: var(--accent);
+   }
+
+   .url-input::placeholder {
+       color: var(--text-dim);
+   }
+
+   .btn-go {
+       background: var(--accent);
+       color: var(--bg);
+       border: none;
+       border-radius: 8px;
+       padding: 14px 24px;
+       font-family: 'Outfit', sans-serif;
+       font-size: 0.9rem;
+       font-weight: 700;
+       cursor: pointer;
+       transition: opacity 0.2s;
+       white-space: nowrap;
+   }
+
+   .btn-go:hover {
+       opacity: 0.85;
+   }
+
+   .btn-go:disabled {
+       opacity: 0.4;
+       cursor: not-allowed;
+   }
+
+/* ==========================================================================
+   Options Panel & Toggle Buttons
+   ========================================================================== */
+
+   .options {
+       background: var(--surface);
+       border: 1px solid var(--border);
+       border-radius: 10px;
+       padding: 20px;
+       display: flex;
+       flex-direction: column;
+       gap: 18px;
+   }
+
+   .option-group label {
+       display: block;
+       font-size: 0.7rem;
+       font-weight: 600;
+       text-transform: uppercase;
+       letter-spacing: 1.2px;
+       color: var(--text-dim);
+       margin-bottom: 8px;
+   }
+
+   .toggle-row {
+       display: flex;
+       gap: 6px;
+   }
+
+   .toggle-btn {
+       flex: 1;
+       background: var(--surface2);
+       border: 1px solid var(--border);
+       border-radius: 6px;
+       padding: 10px 0;
+       font-family: 'JetBrains Mono', monospace;
+       font-size: 0.78rem;
+       color: var(--text-dim);
+       cursor: pointer;
+       transition: all 0.15s;
+       text-align: center;
+   }
+
+   .toggle-btn:hover {
+       border-color: var(--accent);
+       color: var(--text);
+   }
+
+   .toggle-btn.active {
+       background: var(--accent-dim);
+       border-color: var(--accent);
+       color: var(--accent);
+   }
+
+/* ==========================================================================
+   Status Message
+   ========================================================================== */
+
+   .status {
+       margin-top: 20px;
+       font-family: 'JetBrains Mono', monospace;
+       font-size: 0.8rem;
+       color: var(--text-dim);
+       min-height: 20px;
+   }
+
+   .status.error {
+       color: var(--danger);
+   }
+
+   .status.success {
+       color: var(--accent);
+   }
+
+/* ==========================================================================
+   Log Box
+   ========================================================================== */
+
+   .log-box {
+       display: none;
+       margin-top: 14px;
+       background: var(--surface);
+       border: 1px solid var(--border);
+       border-radius: 8px;
+       padding: 12px 14px;
+       font-family: 'JetBrains Mono', monospace;
+       font-size: 0.7rem;
+       color: var(--text-dim);
+       max-height: 180px;
+       overflow-y: auto;
+       white-space: pre-wrap;
+       word-break: break-all;
+       line-height: 1.5;
+   }
+
+   /* Custom scrollbar for the log box */
+   .log-box::-webkit-scrollbar {
+       width: 4px;
+   }
+
+   .log-box::-webkit-scrollbar-track {
+       background: transparent;
+   }
+
+   .log-box::-webkit-scrollbar-thumb {
+       background: var(--border);
+       border-radius: 2px;
+   }
+
+/* ==========================================================================
+   Progress Ring (circular SVG indicator)
+   ========================================================================== */
+
+   .progress-ring {
+       display: inline-block;
+       width: 18px;
+       height: 18px;
+       vertical-align: middle;
+       margin-right: 8px;
+       flex-shrink: 0;
+   }
+
+   /* Background track */
+   .progress-ring-bg {
+       fill: none;
+       stroke: var(--border);
+       stroke-width: 2;
+   }
+
+   /* Foreground arc — width controlled via stroke-dashoffset */
+   .progress-ring-value {
+       fill: none;
+       stroke: var(--accent);
+       stroke-width: 2;
+       stroke-linecap: round;
+       transform: rotate(-90deg);
+       transform-origin: 50% 50%;
+       transition: stroke-dashoffset 0.4s ease;
+   }
+
+   /* Indeterminate (spinning) state */
+   .progress-ring.indeterminate {
+       animation: ring-spin 1s linear infinite;
+   }
+
+   .progress-ring.indeterminate .progress-ring-value {
+       transition: none;
+   }
+
+   @keyframes ring-spin {
+       to {
+           transform: rotate(360deg);
+       }
+   }
+
+/* ==========================================================================
+   Progress Bar (horizontal)
+   ========================================================================== */
+
+   .progress-bar {
+       margin-top: 10px;
+       height: 4px;
+       background: var(--surface2);
+       border-radius: 2px;
+       overflow: hidden;
+   }
+
+   .progress-fill {
+       height: 100%;
+       background: var(--accent);
+       border-radius: 2px;
+       width: 0%;
+       transition: width 0.3s ease;
+   }

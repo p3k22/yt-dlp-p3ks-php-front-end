@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+*.booproj
+*.svd
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Ignore crash logs
+*.stackdump
+
+# Rider / VS Code / JetBrains
+.idea/
+.vscode/
+*.csproj
+*.sln
+*.DotSettings

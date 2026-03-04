@@ -1,0 +1,135 @@
+<!--
+    yt-dlp.p3k — Web UI for yt-dlp
+    Author:  P3k
+    Created: 2026
+    License: MIT
+
+    Description:
+        A lightweight, self-hosted web front-end for downloading video and audio
+        from YouTube and thousands of other sites via yt-dlp. The backend runs on
+        PHP and relies on yt-dlp + ffmpeg being available on the host.
+
+    Usage:
+        1. Install yt-dlp and ffmpeg on your server / local machine.
+        2. Run start-server.bat (Windows) to launch the built-in PHP dev server,
+           or deploy the project under any PHP-capable web server (Apache, Nginx, etc.).
+        3. Open http://localhost:8080 in a browser.
+        4. Paste a URL, pick a format, and hit Download.
+
+    Project structure:
+        index.html        — This file (main UI)
+        api/index.php?route=download  — Handles download requests via yt-dlp
+        api/index.php?route=serve     — Streams finished files to the browser
+        css/style.css     — Stylesheet
+        js/main.js        — Client-side logic
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- HTML Head  --
+        Contains metadata, title, font imports, and stylesheet link.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLP</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Header Blurb -->
+    <div class="container">
+        <div class="logo">yt-dlp<span>.p3k</span></div>
+        <p class="blurb">
+            Download video and audio from YouTube and <a
+                href="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md" target="_blank">thousands of other
+                sites</a>. Powered by <a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp</a>, ffmpeg and
+            PHP.
+        </p>
+
+        <!--    URL Input   --
+            URL input field for pasting YouTube or other media URLs. 
+            btn-go has a click event listener in main.js that initiates the download process. 
+        -->
+        <div class="url-row">
+            <input type="text" class="url-input" id="url" placeholder="Paste Youtube or other media url..."
+                autocomplete="off">
+            <button class="btn-go" id="goBtn">GET</button>
+        </div>
+
+        <!--    Download Options   --
+            Toggles for format, quality, and file type. 
+            Options dynamically show/hide based on format selection.
+        -->
+        <div class="options">
+
+            <!--    Media Type Selection   --
+                Toggle buttons to select between downloading video + audio, video only, or audio only. 
+                The selected option determines which additional settings are shown (quality and file type).
+            -->
+            <div class="option-group">
+                <label>Format</label>
+                <div class="toggle-row" id="formatRow">
+                    <button class="toggle-btn active" data-val="both">Video + Audio</button>
+                    <button class="toggle-btn" data-val="video">Video Only</button>
+                    <button class="toggle-btn" data-val="audio">Audio Only</button>
+                </div>
+            </div>
+
+            <!--    Video Quality Selection   --
+                Quality options for video downloads. Hidden when "Audio Only" is selected.
+            -->
+            <div class="option-group" id="qualityGroup">
+                <label>Quality</label>
+                <div class="toggle-row" id="qualityRow">
+                    <button class="toggle-btn active" data-val="best">Best</button>
+                    <button class="toggle-btn" data-val="1080">1080p</button>
+                    <button class="toggle-btn" data-val="720">720p</button>
+                    <button class="toggle-btn" data-val="480">480p</button>
+                </div>
+            </div>
+
+            <!--    Video File Type Selection   --
+                File type options for video downloads. Hidden when "Audio Only" is selected.
+            -->
+            <div class="option-group" id="videoTypeGroup">
+                <label>File Type</label>
+                <div class="toggle-row" id="videoTypeRow">
+                    <button class="toggle-btn active" data-val="mp4">mp4</button>
+                    <button class="toggle-btn" data-val="mkv">mkv</button>
+                    <button class="toggle-btn" data-val="webm">webm</button>
+                </div>
+            </div>
+
+            <!--    Audio File Type Selection   --
+                File type options for audio downloads. Hidden when "Video Only" is selected.
+            -->
+            <div class="option-group" id="audioTypeGroup" style="display:none;">
+                <label>File Type</label>
+                <div class="toggle-row" id="audioTypeRow">
+                    <button class="toggle-btn active" data-val="mp3">mp3</button>
+                    <button class="toggle-btn" data-val="m4a">m4a</button>
+                    <button class="toggle-btn" data-val="ogg">ogg</button>
+                </div>
+            </div>
+        </div>
+
+        <!--    Download Status   --
+            Displays the current status of the download process.
+        -->
+        <div class="status" id="status"></div>
+        <pre class="log-box" id="logBox"></pre>
+    </div>
+
+    <!--    JS Imports  -->
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
